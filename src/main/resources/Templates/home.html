@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Application</title>
+</head>
+<body>
+
+<h1>Todo Application</h1>
+
+<form action="add-task" method="POST">
+    <input type="text" name="title" placeholder="Enter Title" required/>
+
+    <select name="priority">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+    </select>
+
+    <button type="submit">Add Task</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>TITLE</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.title}"></td>
+        <td th:text="${task.priority}"></td>
+        <td th:text="${task.status}"></td>
+        <td>
+            <a th:href="@{/delete/{id}(id=${task.id})}" onclick="confirmDelete()">Delete</a>
+        </td>
+    </tr>
+</table>
+<script>
+    function confirmDelete(){
+        return confirm("Are you sure want to delete?");
+    }
+</script>
+
+</body>
+</html>
